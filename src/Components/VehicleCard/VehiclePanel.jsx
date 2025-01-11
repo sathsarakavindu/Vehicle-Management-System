@@ -27,6 +27,12 @@ export const getVehicles = async () => {
   return response.data.list;
 };
 
+
+// export const getVehicles = async () => {
+//   const response = await axios.get( import.meta.env.BACKEND_URL + '/vehicles');
+//   return response.data.list;
+// };
+
 function VehiclePanel() {
   const [vehicle, setVehicle] = useState([]);
   const [isLoading, setLoading] = useState(false);
