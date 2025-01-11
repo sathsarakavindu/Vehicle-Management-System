@@ -22,16 +22,6 @@ import VehicleCard from "./VehicleCard";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export const getVehicles = async () => {
-  const response = await axios.get('/api/vehicles');
-  return response.data.list;
-};
-
-
-// export const getVehicles = async () => {
-//   const response = await axios.get( import.meta.env.BACKEND_URL + '/vehicles');
-//   return response.data.list;
-// };
 
 function VehiclePanel() {
   const [vehicle, setVehicle] = useState([]);
@@ -41,10 +31,14 @@ function VehiclePanel() {
         if(!isLoading){
           const fetchVehicles = async () => {
             try {
-              const data = await getVehicles();
-              setVehicle(data); 
-              console.log(data);
+              axios.get(import.meta.env.VITE_BACKEND_URL + '/vehicles').then((result)=>{
+              setVehicle(result.data.list); 
+              console.log(result.data.list);
               setLoading(true);
+              }).catch((err)=>{
+                console.log(`Error: ${err}`);
+              });
+
             } catch (error) {
               console.error("Error fetching vehicles:", error);
             }
