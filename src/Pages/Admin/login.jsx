@@ -37,7 +37,7 @@ function Login() {
       <button
         className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl mb-4"
         onClick={() => {
-          
+          window.location.href = "/manage-vehicle"
         }}
       >
         Login
