@@ -5,11 +5,13 @@ import HeaderItem from './HeaderItem';
 
 
 function Header() {
+
+  
   return (
     <header className="w-full h-[80px] bg-gray-800 text-white flex items-center justify-between relative">
       {/* Left Section: Logo */}
       <div className="flex gap-4 items-center p-4">
-        <img src={logo} alt="logo" className="w-10 h-10 cursor-pointer" />
+        <img src={logo} alt="logo" className="w-10 h-10 cursor-pointer" onClick={()=>{}}/>
         <h1 className='text-white text-lg font-bold cursor-pointer'>Vehicle Management System</h1>
       </div>
 
@@ -34,7 +36,7 @@ function Header() {
 
       {/* Right Section: User Icon */}
       <div className="flex items-center absolute right-0 px-5 cursor-pointer">
-        <img src={user} className="w-[35px]" alt="user" />
+        <img src={user} className="w-[35px]" alt="user" onClick={()=>{window.location.href = "/login"}}/>
       </div>
     </header>
   );
