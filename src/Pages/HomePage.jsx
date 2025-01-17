@@ -26,12 +26,13 @@ import Footer from "../Components/Footer";
 
 function HomePage() {
   const [province, setProvince] = useState(""); // State for province
+  const[vehicleNumber, setVehicleNumber] = useState(""); // State for vehicle number
 
   return (
     <div>
       <Header />
-      <SearchBar province={province} setProvince={setProvince} /> {/* Pass state */}
-      <VehiclePanel province={province} /> {/* Pass province */}
+      <SearchBar province={province} setProvince={setProvince}  setVehicleNumber={setVehicleNumber} vehicleNumber={vehicleNumber}/> {/* Pass state */}
+      <VehiclePanel province={province} vehicleNumber={vehicleNumber}/> {/* Pass province */}
       <Footer />
     </div>
   );
