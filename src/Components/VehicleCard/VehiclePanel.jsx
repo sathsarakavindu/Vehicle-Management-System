@@ -50,12 +50,14 @@ import axios from "axios";
 import VehicleCard from "./VehicleCard";
 import { useEffect, useState } from "react";
 
-function VehiclePanel({ province }) {
+function VehiclePanel({ province, vehicleNumber }) {
   const [vehicle, setVehicle] = useState([]);
+ 
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchVehicles = async () => {
+     
       try {
         const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/vehicles");
         const vehicles = response.data.list;
@@ -65,7 +67,14 @@ function VehiclePanel({ province }) {
           console.log("Province:", province);
           setVehicle(vehicles.filter((v) => v.province === province));
 
-        } else {
+        }else if(vehicleNumber){
+          // Filter vehicles based on the selected vehicle number
+          console.log("Vehicle Number:", vehicleNumber);
+          setVehicle(vehicles.filter((v) => v.vehicleNumber === vehicleNumber));
+
+        } 
+        
+        else {
           // No province selected, show all vehicles
           setVehicle(vehicles);
         }
@@ -77,7 +86,7 @@ function VehiclePanel({ province }) {
     };
 
     fetchVehicles();
-  }, [province]); // Refetch data when the province changes
+  }, [province,vehicleNumber]); // Refetch data when the province changes
 
   if (!isLoading) {
     return <div>Loading...</div>;
