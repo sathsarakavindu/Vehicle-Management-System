@@ -23,15 +23,15 @@ function Header() {
 
 
       <div className="absolute left-1/2 transform -translate-x-1/2 flex gap-6 hidden lg:flex">
-      <HeaderItem headerName={'Home'}/>
-      <HeaderItem headerName={'About Us'}/>
-      <HeaderItem headerName={'Contact Us'}/>
+      <HeaderItem headerName={'Home'} linkPath={"/"}/>
+      <HeaderItem headerName={'About Us'} linkPath={"/about"}/>
+      <HeaderItem headerName={'Contact Us'} linkPath={"/contact"}/>
       </div>
 
       <div className="absolute left-1/2 transform -translate-x-1/4 flex gap-6 hidden md:flex lg:hidden">
-      <HeaderItem headerName={'Home'}/>
-      <HeaderItem headerName={'About Us'}/>
-      <HeaderItem headerName={'Contact Us'}/>
+      <HeaderItem headerName={'Home'} linkPath={"/"}/>
+      <HeaderItem headerName={'About Us'} linkPath={"/about"}/>
+      <HeaderItem headerName={'Contact Us'} linkPath={"/contact"}/>
       </div>
 
       {/* Right Section: User Icon */}
