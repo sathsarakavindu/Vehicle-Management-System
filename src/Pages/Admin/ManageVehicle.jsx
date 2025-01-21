@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
-import VehicleCard from '../../Components/VehicleCard/VehicleCard';
 import './../../styles/App.css'
+import Header from '../../Components/Header/Header';
+import Footer from '../../Components/Footer';
+import AdminVehicleCard from '../../Components/VehicleCard/AdminVehicleCard';
 
 
 function ManageVehicle() {
@@ -77,9 +79,20 @@ function ManageVehicle() {
     }
   };
 
+  const deleteVehicle = async (vehicleNumber) => {
+    try {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/vehicles/${vehicleNumber}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      console.log(`Vehicle ${vehicleNumber} deleted successfully.`);
+    } catch (error) {
+      console.error(`Error deleting vehicle ${vehicleNumber}:`, error);
+    }
+  };
+
   const handleDelete = async (vehicleNumber) => {
     try {
-    
+      await deleteVehicle(vehicleNumber);
       fetchVehicles();
     } catch (error) {
       console.error("Error deleting vehicle:", error);
@@ -132,10 +145,14 @@ function ManageVehicle() {
     }
   };
 
+  
+
   return (
+    <>
+    <Header/>
     <div>
-        <h1>Manage Vehicle</h1>
-        <h2>Add Vehicle</h2>
+        <h1 className='text-center'>Manage Vehicle</h1>
+        <h2 className='text-2xl mx-2'>Add Vehicle</h2>
         <div style={styles.formContainer}>
         {/* General Vehicle Info */}
         <input
@@ -297,16 +314,20 @@ function ManageVehicle() {
           Save Vehicle
         </button>
       </div>
-      <h2>Vehicles List</h2>
+      {/* <h2>Vehicles List</h2> */}
       <div className="flex flex-wrap justify-center gap-4">
        {
         vehicles.map((value, index)=>(
-          <VehicleCard key={index} fundAmount={value.fundAmount} isInPoliceGarage={value.isInPoliceGarage} isActive={value.isActive} temporaryLocation={value.temporaryLocation} policeOfficer={value.policeOfficer} province={value.province} manufactureYear={value.manufactureYear} revenueLicenseNumber={value.revenueLicenseNumber} engineNumber={value.engineNumber} chassyNumber={value.chassyNumber} name={value.vehicleName} station={value.policeStation
-          } category={value.vehicleCategory} model={value.vehicleBrand} vehicle_no={value.vehicleNumber} image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7P4uDsjBCS_f54801NJpbGxzVgcgq20vcQIgfjb23U11mDoue0xML-p4&s'}/>
+          <AdminVehicleCard key={index} fundAmount={value.fundAmount} isInPoliceGarage={value.isInPoliceGarage} isActive={value.isActive} temporaryLocation={value.temporaryLocation} policeOfficer={value.policeOfficer} province={value.province} manufactureYear={value.manufactureYear} revenueLicenseNumber={value.revenueLicenseNumber} engineNumber={value.engineNumber} chassyNumber={value.chassyNumber} name={value.vehicleName} station={value.policeStation
+          } category={value.vehicleCategory} model={value.vehicleBrand} vehicle_no={value.vehicleNumber} image={value.vehicleImage} handleDelete={handleDelete}/>
         ))
        }
   </div>
-     </div>
+  </div>
+  <Footer/>
+  </>   
+
+
   );
 
 };
@@ -333,6 +354,15 @@ const styles = {
       padding: "8px",
       border: "1px solid #ccc",
       borderRadius: "4px",
+    },
+    deleteButton: {
+      backgroundColor: "#dc3545",
+      color: "white",
+      padding: "5px 10px",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      marginTop: "10px",
     },
   };
 

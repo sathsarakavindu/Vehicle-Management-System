@@ -152,3 +152,5 @@ function VehicleCard({ name, image, vehicle_no, model, station, category, chassy
      
      export default VehicleCard;
      
+
+     
