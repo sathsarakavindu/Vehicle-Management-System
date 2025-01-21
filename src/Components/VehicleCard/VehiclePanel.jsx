@@ -79,6 +79,7 @@ export default VehiclePanel;
 import axios from "axios";
 import VehicleCard from "./VehicleCard";
 import { useEffect, useState } from "react";
+import { Circles } from "react-loader-spinner";
 
 function VehiclePanel({ province, vehicleNumber }) {
   const [vehicle, setVehicle] = useState([]);
@@ -117,7 +118,17 @@ function VehiclePanel({ province, vehicleNumber }) {
   }, [province, vehicleNumber]); // Refetch data when the province or vehicleNumber changes
 
   if (!isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Circles
+          height= "80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          visible={true}
+        />
+      </div>
+    );
   }
 
   return (
