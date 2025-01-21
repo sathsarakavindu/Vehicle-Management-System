@@ -10,6 +10,7 @@ function ManageVehicle() {
 
 
     const [vehicles, setVehicles] = useState([]);
+    const [searchValue, setSearchValue] = useState(""); 
 
   // State for adding a vehicle with all fields from the schema
   const [newVehicle, setNewVehicle] = useState({
@@ -51,6 +52,24 @@ function ManageVehicle() {
     }
   };
 
+
+  const vehicleSearch = () => {
+    if (searchValue.trim() === "") {
+      // Show all vehicles if search is empty
+      fetchVehicles();
+      return;
+    }
+  
+    const filteredVehicles = vehicles.filter(
+      (v) =>
+        v.vehicleNumber.toLowerCase().includes(searchValue.toLowerCase()) ||
+        v.vehicleName.toLowerCase().includes(searchValue.toLowerCase()) ||
+        v.vehicleBrand.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  
+    setVehicles(filteredVehicles); // Update state with filtered vehicles
+  };
+  
 
   const fetchVehicles = async () => {
     try {
@@ -151,7 +170,19 @@ function ManageVehicle() {
     <>
     <Header/>
     <div>
-        <h1 className='text-center'>Manage Vehicle</h1>
+       <div className='flex flex-row justify-center'>
+       <h1 className='text-center flex-row '>Manage Vehicle</h1>
+       <input
+          placeholder='EX: WP-MNZ 1463'
+          type="text"
+          className="bg-slate-300 right-[100px] top-[90px] rounded-md w-[200px] h-[40px] absolute"
+          onChange={(e) => setSearchValue(e.target.value)}
+          value={searchValue}
+        />
+        <button className="top-[95px] absolute rounded-md right-0 mx-[20px] w-[70px] h-[40px]" onClick={vehicleSearch}>
+          Search
+        </button>
+       </div>
         <h2 className='text-2xl mx-2'>Add Vehicle</h2>
         <div style={styles.formContainer}>
         {/* General Vehicle Info */}
