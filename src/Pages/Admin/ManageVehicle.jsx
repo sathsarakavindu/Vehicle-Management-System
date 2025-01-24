@@ -85,11 +85,22 @@ function ManageVehicle() {
   };
 
   const createVehicle = async (vehicleData) => {
-    const response = await axios.post( import.meta.env.VITE_BACKEND_URL + '/vehicles', vehicleData, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    });
-    return response.data;
+    try {
+      console.log("Sending payload:", vehicleData);
+      const response = await axios.post(
+        import.meta.env.VITE_BACKEND_URL + '/vehicles',
+        vehicleData,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error response:", error.response?.data || error.message);
+      throw error;
+    }
   };
+  
 
   const handleCreate = async () => {
     try {
