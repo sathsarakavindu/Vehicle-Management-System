@@ -4,6 +4,8 @@ import './../../styles/App.css'
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer';
 import AdminVehicleCard from '../../Components/VehicleCard/AdminVehicleCard';
+import { supabase } from '../../Components/Admin/supabaseClient';
+// import { supabase } from '../../Components/Admin/supabaseClient'; // Import Supabase client
 
 
 function ManageVehicle() {
@@ -11,6 +13,7 @@ function ManageVehicle() {
 
     const [vehicles, setVehicles] = useState([]);
     const [searchValue, setSearchValue] = useState(""); 
+    const [uploading, setUploading] = useState(false);
 
   // State for adding a vehicle with all fields from the schema
   const [newVehicle, setNewVehicle] = useState({
@@ -28,7 +31,7 @@ function ManageVehicle() {
     policeOfficer: "",
     temporaryLocation: "",
     isActive: true,
-    isInPoliceGarage: true,
+    isInPoliceGarage: false,
     outsideGarageLocation: "",
     fundAmount: 0,
   });
@@ -164,6 +167,39 @@ function ManageVehicle() {
     }
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+
+    try {
+      const fileName = `${new Date().getTime()}-${file.name}`;
+      const { data, error } = await supabase.storage
+        .from('vehicle-images')
+        .upload(fileName, file);
+
+      if (error) {
+        console.error('Error uploading image:', error.message);
+        return;
+      }
+
+      const { publicUrl } = supabase.storage.from('vehicle-images').getPublicUrl(data.path);
+
+      setNewVehicle((prevState) => ({
+        ...prevState,
+        vehicleImage: publicUrl,
+      }));
+
+      console.log('Image uploaded successfully:', publicUrl);
+    } catch (error) {
+      console.error('Error uploading image:', error.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+
   
 
   return (
@@ -207,6 +243,11 @@ function ManageVehicle() {
           value={newVehicle.vehicleBrand}
           onChange={handleChange}
         />
+        <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+          />
         <input
           type="text"
           name="vehicleImage"
