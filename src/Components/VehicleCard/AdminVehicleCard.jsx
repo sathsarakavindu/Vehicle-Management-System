@@ -23,6 +23,26 @@ function AdminVehicleCard({
    }) {
 
        const navigate = useNavigate();
+
+const handleEditPage = ()=>{
+      navigate('/edit-vehicle', {state:{
+       vehicle_Number: vehicle_no, 
+       vehicle_Name: name, 
+       chassy_no: chassyNumber, 
+       engine_no: engineNumber, 
+       permit_no: revenueLicenseNumber, 
+       year_:manufactureYear, 
+       category: category, 
+       temp_loc:temporaryLocation,
+       officer: policeOfficer,
+       station: station,
+       type: category,
+       model: model,
+       fund: fundAmount,
+       province: province
+}});
+};
+
        return (
           <div className="w-full sm:w-full md:w-[48%] lg:w-[30%] h-[1050px] bg-slate-300 flex flex-col m-2 rounded-md relative"> 
            <div className="w-full">
@@ -100,7 +120,7 @@ function AdminVehicleCard({
            </div>
    
            {/*Edit button*/ }
-           <button onClick={()=>{navigate('/edit-vehicle')}} className="absolute bottom-4 right-[120px] px-3 py-1 ">
+           <button onClick={()=>{handleEditPage()}} className="absolute bottom-4 right-[120px] px-3 py-1 ">
                  Edit
            </button>
    
