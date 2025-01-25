@@ -5,6 +5,7 @@ import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer';
 import AdminVehicleCard from '../../Components/VehicleCard/AdminVehicleCard';
 import { supabase } from '../../Components/Admin/supabaseClient';
+import toast from 'react-hot-toast';
 // import { supabase } from '../../Components/Admin/supabaseClient'; // Import Supabase client
 
 
@@ -96,6 +97,7 @@ function ManageVehicle() {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         }
       );
+      toast.success('Vehicle Successfully Added..!');
       return response.data;
     } catch (error) {
       console.error("Error response:", error.response?.data || error.message);
@@ -106,10 +108,12 @@ function ManageVehicle() {
 
   const handleCreate = async () => {
     try {
+      
         await createVehicle(newVehicle);
       fetchVehicles();
       resetForm();
     } catch (error) {
+      toast.error('Vehicle can\'t be added');
       console.error("Error creating vehicle:", error);
     }
   };
@@ -119,9 +123,11 @@ function ManageVehicle() {
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/vehicles/${vehicleNumber}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
+      toast.success(`Vehicle ${vehicleNumber} deleted successfully.`);
       console.log(`Vehicle ${vehicleNumber} deleted successfully.`);
     } catch (error) {
       console.error(`Error deleting vehicle ${vehicleNumber}:`, error);
+      toast.error("Vehicle can't be deleted");
     }
   };
 

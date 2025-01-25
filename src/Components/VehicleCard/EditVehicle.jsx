@@ -7,8 +7,9 @@ import { useState } from "react";
 function EditVehicle() {
 
    const location = useLocation();
-   var {vehicle_Number, vehicle_Name, chassy_no, engine_no, permit_no, year_, category, province, temp_loc, officer, station, model, fund, isActive:initialIsActive, isInPoliceGarage, outsideGarageLocation} = location.state || {};
+   var {vehicle_Number, vehicle_Name, chassy_no, engine_no, permit_no, year_, category, province, temp_loc, officer, station, model, fund, isActive:initialIsActive, isInPoliceGarage: initialIsInPoliceGarage, outsideGarageLocation} = location.state || {};
    const [isActive, setIsActive] = useState(initialIsActive || false);
+   const [isInPoliceGarage, setIsInPoliceGarage] = useState(initialIsInPoliceGarage || false);
     const navigate = useNavigate();
     const handleBack = () => {
         navigate(-1); // Go back to the previous page
@@ -19,8 +20,9 @@ const handleUpdate = (e)=>{
 console.log("isActive: " + isActive);
 };
 
-const handleIsInGarage = ()=>{
-   setIsActive(true);
+const handleIsInGarage = (e)=>{
+   var { name, value, type, checked } = e.target;
+   setIsInPoliceGarage(checked);
 };
 
 const handelIsActive = (e) => {
@@ -186,9 +188,9 @@ const handelIsActive = (e) => {
           <input
             type="checkbox"
             name="isInPoliceGarage"
-            disabled={isInPoliceGarage}
-            value={isInPoliceGarage}
-            
+            disabled={isActive == true ? true : false}
+            onChange={handleIsInGarage}
+            checked={isInPoliceGarage}
           />
           Is in Police Garage
         </label>
@@ -206,6 +208,7 @@ const handelIsActive = (e) => {
                   name="fundAmount"
                   placeholder="Fund Amount"
                   value={fund}
+                  
                 />
               </>
 
