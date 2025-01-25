@@ -18,6 +18,9 @@ function AdminVehicleCard({
        isInPoliceGarage, 
        fundAmount, 
        handleDelete,
+       is_active,
+       is_in_police_garage,
+       outsideLocation,
        handleEdit
        // Accept the delete function as a prop
    }) {
@@ -39,7 +42,10 @@ const handleEditPage = ()=>{
        type: category,
        model: model,
        fund: fundAmount,
-       province: province
+       province: province,
+       isActive:is_active,
+       isInPoliceGarage: is_in_police_garage,
+       outsideGarageLocation: outsideLocation,
 }});
 };
 
