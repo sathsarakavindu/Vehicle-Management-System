@@ -1,21 +1,32 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from './../Header/Header';
 import Footer from './../Footer';
+import { useState } from "react";
 
 
 function EditVehicle() {
 
    const location = useLocation();
-   const {vehicle_Number, vehicle_Name, chassy_no, engine_no, permit_no, year_, category, province, temp_loc, officer, station, model, fund} = location.state || {};
-
+   var {vehicle_Number, vehicle_Name, chassy_no, engine_no, permit_no, year_, category, province, temp_loc, officer, station, model, fund, isActive:initialIsActive, isInPoliceGarage, outsideGarageLocation} = location.state || {};
+   const [isActive, setIsActive] = useState(initialIsActive || false);
     const navigate = useNavigate();
     const handleBack = () => {
         navigate(-1); // Go back to the previous page
       };
 
-const handleUpdate = ()=>{
-alert("Update");
+const handleUpdate = (e)=>{
+ e.preventDefault();
+console.log("isActive: " + isActive);
 };
+
+const handleIsInGarage = ()=>{
+   setIsActive(true);
+};
+
+const handelIsActive = (e) => {
+   var { name, value, type, checked } = e.target;
+   setIsActive(checked);
+ };
 
   return (
    <>
@@ -159,10 +170,44 @@ alert("Update");
               <input type="text" value={model} placeholder="Vehicle Model" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
             </label>
 
-            <label className="block mb-2">
-               Amount of Fund:
-              <input type="text" value={fund} placeholder="Amount of Fund" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
-            </label>
+           
+            <label>
+          <input
+            type="checkbox"
+            name="isActive"
+            disabled={isActive == false ? true : false}
+            checked={isActive}
+            onChange={handelIsActive}
+          />
+          Is Active
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="isInPoliceGarage"
+            disabled={isInPoliceGarage}
+            value={isInPoliceGarage}
+            
+          />
+          Is in Police Garage
+        </label>
+
+        <>
+                <input
+                  type="text"
+                  name="outsideGarageLocation"
+                  placeholder="Outside Garage Location"
+                  value={outsideGarageLocation}
+                  
+                />
+                <input
+                  type="number"
+                  name="fundAmount"
+                  placeholder="Fund Amount"
+                  value={fund}
+                />
+              </>
 
             <button type="submit" className="w-full p-2 mt-4 bg-blue-600 text-white rounded hover:bg-blue-700 justify-center flex">
                 Update Vehicle

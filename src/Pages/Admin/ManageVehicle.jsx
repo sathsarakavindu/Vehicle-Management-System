@@ -419,8 +419,8 @@ function ManageVehicle() {
       <div className="flex flex-wrap justify-center gap-4">
        {
         vehicles.map((value, index)=>(
-          <AdminVehicleCard key={index} fundAmount={value.fundAmount} isInPoliceGarage={value.isInPoliceGarage} isActive={value.isActive} temporaryLocation={value.temporaryLocation} policeOfficer={value.policeOfficer} province={value.province} manufactureYear={value.manufactureYear} revenueLicenseNumber={value.revenueLicenseNumber} engineNumber={value.engineNumber} chassyNumber={value.chassyNumber} name={value.vehicleName} station={value.policeStation
-          } category={value.vehicleCategory} model={value.vehicleBrand} vehicle_no={value.vehicleNumber} image={value.vehicleImage} handleDelete={handleDelete}/>
+          <AdminVehicleCard key={index} outsideLocation={value.outsideGarageLocation} fundAmount={value.fundAmount} isInPoliceGarage={value.isInPoliceGarage} isActive={value.isActive} temporaryLocation={value.temporaryLocation} policeOfficer={value.policeOfficer} province={value.province} manufactureYear={value.manufactureYear} revenueLicenseNumber={value.revenueLicenseNumber} engineNumber={value.engineNumber} chassyNumber={value.chassyNumber} name={value.vehicleName} 
+          station={value.policeStation} category={value.vehicleCategory} model={value.vehicleBrand} vehicle_no={value.vehicleNumber} image={value.vehicleImage} is_active={value.isActive} is_in_police_garage={value.isInPoliceGarage} handleDelete={handleDelete} />
         ))
        }
   </div>
