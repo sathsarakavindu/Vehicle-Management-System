@@ -11,6 +11,8 @@ function Login() {
     try{
       const response = await axios.post(import.meta.env.VITE_BACKEND_URL + '/users/login', credentials);
       localStorage.setItem('token', response.data.token);
+      
+
       alert('Login successful!');
       window.location.href = "/manage-vehicle"
     }
