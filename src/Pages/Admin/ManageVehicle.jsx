@@ -164,7 +164,7 @@ function ManageVehicle() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
+e.preventDefault
     if (type === "checkbox") {
       setNewVehicle((prevState) => ({
         ...prevState,
@@ -243,6 +243,7 @@ function ManageVehicle() {
     <div>
        <div className='flex flex-row justify-center'>
        <h1 className='text-center flex-row '>Manage Vehicle</h1>
+       
        <input
           placeholder='EX: WP-MNZ 1463'
           type="text"
@@ -254,125 +255,172 @@ function ManageVehicle() {
           Search
         </button>
        </div>
-        <h2 className='text-2xl mx-2'>Add Vehicle</h2>
-        <div style={styles.formContainer}>
-        {/* General Vehicle Info */}
-        <input
-          type="text"
-          name="vehicleNumber"
+     
+{/* add vehicle panel*/ }
+        <div className="w-full flex justify-center items-center mb-12">
+         <div  className="p-6 bg-gray-100 rounded-md shadow-lg">
+            <h2 className="text-2xl font-semibold mb-4">Add Vehicle</h2>
+            
+            <label className="block mb-2">
+               Vehicle No:
+               <input
+               className="w-full p-2 border rounded mt-1"
+                  type="text"
+                    name="vehicleNumber"
           placeholder="Vehicle Number"
           value={newVehicle.vehicleNumber}
           onChange={handleChange}
-        />
-        <input
-          type="text"
+                  required
+               />
+            </label>
+
+            <label className="block mb-2">
+               Vehicle Name:
+               <input
+                   type="text"
           name="vehicleName"
           placeholder="Vehicle Name"
           value={newVehicle.vehicleName}
           onChange={handleChange}
-        />
-        <input
-          type="text"
+                  className="w-full p-2 border rounded mt-1"
+                 
+                  required
+               />
+            </label>
+
+            <label className="block mb-2">
+            Vehicle Brand:
+               <input
+                    type="text"
           name="vehicleBrand"
           placeholder="Vehicle Brand"
           value={newVehicle.vehicleBrand}
           onChange={handleChange}
-        />
-        <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-          />
-        <input
-          type="text"
-          name="vehicleImage"
-          placeholder="Vehicle Image URL"
-          value={newVehicle.vehicleImage}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
+                  className="w-full p-2 border rounded mt-1"
+                  required
+               />
+            </label>
+
+            <label className="block mb-2">
+               Chassy Number:
+               <input
+                    type="text"
           name="chassyNumber"
           placeholder="Chassy Number"
           value={newVehicle.chassyNumber}
           onChange={handleChange}
-        />
-        <input
-          type="text"
+                  className="w-full p-2 border rounded mt-1"
+                  required
+               />
+            </label>
+            <label className="block mb-2">
+               Engine Number:
+               <input
+                    type="text"
           name="engineNumber"
           placeholder="Engine Number"
           value={newVehicle.engineNumber}
           onChange={handleChange}
-        />
-        <input
-          type="text"
+                  className="w-full p-2 border rounded mt-1"
+                  
+               />
+            </label>
+            <label className="block mb-2">
+               Vehicle Revenue Permit:
+               <input
+                    type="text"
           name="revenueLicenseNumber"
           placeholder="Revenue License Number"
           value={newVehicle.revenueLicenseNumber}
           onChange={handleChange}
-        />
-        <select
-          name="vehicleCategory"
-          value={newVehicle.vehicleCategory}
-          onChange={handleChange}
-          style={styles.dropdown}
-        >
-          <option value="">Select a Category</option>
-          <option value="Truck">Truck</option>
-          <option value="Sedan">Sedan</option>
-          <option value="SUV">SUV</option>
-          <option value="Motorcycle">Motorcycle</option>
-        </select>
+                  className="w-full p-2 border rounded mt-1"
+                  required
+               />
+            </label>
 
-        <input
-          type="text"
+            <label className="block mb-2">
+              Manufacture Year:
+                <input
+                     type="text"
           name="manufactureYear"
           placeholder="Manufacture Year"
           value={newVehicle.manufactureYear}
           onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="policeStation"
-          placeholder="Police Station"
-          value={newVehicle.policeStation}
+                  className="w-full p-2 border rounded mt-1"
+                  required
+               />
+            </label>
+            <label className="block mb-4">
+               Category:
+               <select className="w-full p-2 rounded border mt-1"
+                  name="vehicleCategory"
+          value={newVehicle.vehicleCategory}
           onChange={handleChange}
-        />
-        <select
-          name="province"
-          value={newVehicle.province}
-          onChange={handleChange}
-          style={styles.dropdown}
-        >
-          <option value="">Select Province</option>
-          <option value="Western">Western</option>
-          <option value="Central">Central</option>
-          <option value="Southern">Southern</option>
-          <option value="Eastern">Eastern</option>
-          <option value="Northern">Northern</option>
-          <option value="North Western">North Western</option>
-          <option value="Uva">Uva</option>
-          <option value="Sabaragamuwa">Sabaragamuwa</option>
+               >
+                  <option value="">Select a Category</option>
+                  <option value="Truck">Truck</option>
+                  <option value="Sedan">Sedan</option>
+                  <option value="SUV">SUV</option>
+                  <option value="Motorcycle">Motorcycle</option>
+               </select>
+            </label>
+            <label className="block mb-3">
+               Provice:
+               <select name="province" value={newVehicle.province} onChange={handleChange} className=" mb-2 w-full p-2 mt-1">
+           <option value="">Select Province</option>
+           <option value="Western">Western</option>
+           <option value="Central">Central</option>
+           <option value="Southern">Southern</option>
+           <option value="Eastern">Eastern</option>
+           <option value="Northern">Northern</option>
+           <option value="North Western">North Western</option>
+           <option value="Uva">Uva</option>
+           <option value="Sabaragamuwa">Sabaragamuwa</option>
         </select>
+            </label>
 
-        <input
-          type="text"
-          name="policeOfficer"
-          placeholder="Police Officer"
-          value={newVehicle.policeOfficer}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
+            <label className="block mb-2">
+               Temporary Location:
+              <input 
+                 type="text"
           name="temporaryLocation"
           placeholder="Temporary Location"
           value={newVehicle.temporaryLocation}
           onChange={handleChange}
-        />
+              className="w-full p-2 border rounded mt-1" 
+              required/>
+            </label>
 
-        {/* isActive Checkbox */}
-        <label>
-          <input
+            <label className="block mb-2">
+               Police Officer:
+              <input 
+                type="text"
+          name="policeOfficer"
+          placeholder="Police Officer"
+          value={newVehicle.policeOfficer}
+          onChange={handleChange}
+              className="w-full p-2 border rounded mt-1" 
+              required/>
+            </label>
+
+            <label className="block mb-2">
+               Police Station:
+              <input 
+               type="text"
+          name="policeStation"
+          placeholder="Police Station"
+          value={newVehicle.policeStation}
+          onChange={handleChange}
+              className="w-full p-2 border rounded mt-1" 
+              required/>
+            </label>
+            <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+          />
+            <label>
+               <input
             type="checkbox"
             name="isActive"
             checked={newVehicle.isActive}
@@ -381,8 +429,7 @@ function ManageVehicle() {
           Is Active
         </label>
 
-        {/* Render this part only if isActive is false */}
-        {!newVehicle.isActive && (
+           {!newVehicle.isActive && (
           <>
             {/* isInPoliceGarage Checkbox */}
             <label>
@@ -417,10 +464,31 @@ function ManageVehicle() {
           </>
         )}
 
-        <button onClick={handleCreate} style={styles.createButton}>
-          Save Vehicle
+            <button 
+            onClick={handleCreate}
+            type="submit" 
+            className="w-full p-2 mt-4 
+            bg-blue-600 
+            text-white rounded 
+            hover:bg-blue-700 
+            justify-center 
+            flex">
+                Add
+            
+            </button>
+            <button type="button" onClick={()=>{}} 
+            className="w-full 
+            p-2 mt-4 
+            bg-gray-500 
+            text-white 
+            rounded 
+            hover:bg-gray-600">
+             Clear
         </button>
+
+         </div>
       </div>
+        
       {/* <h2>Vehicles List</h2> */}
       <div className="flex flex-wrap justify-center gap-4">
        {
@@ -475,3 +543,172 @@ const styles = {
 
 
 export default ManageVehicle
+
+
+
+{/* <div style={styles.formContainer}>
+        {/* General Vehicle Info */}
+        // <input
+        //   type="text"
+        //   name="vehicleNumber"
+        //   placeholder="Vehicle Number"
+        //   value={newVehicle.vehicleNumber}
+        //   onChange={handleChange}
+        // />
+        // <input
+        //   type="text"
+        //   name="vehicleName"
+        //   placeholder="Vehicle Name"
+        //   value={newVehicle.vehicleName}
+        //   onChange={handleChange}
+        // />
+        // <input
+        //   type="text"
+        //   name="vehicleBrand"
+        //   placeholder="Vehicle Brand"
+        //   value={newVehicle.vehicleBrand}
+        //   onChange={handleChange}
+        // />
+        // <input
+        //     type="file"
+        //     accept="image/*"
+        //     onChange={handleImageUpload}
+        //   />
+        // <input
+        //   type="text"
+        //   name="vehicleImage"
+        //   placeholder="Vehicle Image URL"
+        //   value={newVehicle.vehicleImage}
+        //   onChange={handleChange}
+        // />
+        // <input
+        //   type="text"
+        //   name="chassyNumber"
+        //   placeholder="Chassy Number"
+        //   value={newVehicle.chassyNumber}
+        //   onChange={handleChange}
+        // />
+        // <input
+        //   type="text"
+        //   name="engineNumber"
+        //   placeholder="Engine Number"
+        //   value={newVehicle.engineNumber}
+        //   onChange={handleChange}
+        // />
+        // <input
+        //   type="text"
+        //   name="revenueLicenseNumber"
+        //   placeholder="Revenue License Number"
+        //   value={newVehicle.revenueLicenseNumber}
+        //   onChange={handleChange}
+        // />
+        // <select
+        //   name="vehicleCategory"
+        //   value={newVehicle.vehicleCategory}
+        //   onChange={handleChange}
+        //   style={styles.dropdown}
+        // >
+        //   <option value="">Select a Category</option>
+        //   <option value="Truck">Truck</option>
+        //   <option value="Sedan">Sedan</option>
+        //   <option value="SUV">SUV</option>
+        //   <option value="Motorcycle">Motorcycle</option>
+        // </select>
+
+        // <input
+        //   type="text"
+        //   name="manufactureYear"
+        //   placeholder="Manufacture Year"
+        //   value={newVehicle.manufactureYear}
+        //   onChange={handleChange}
+        // />
+        // <input
+        //   type="text"
+        //   name="policeStation"
+        //   placeholder="Police Station"
+        //   value={newVehicle.policeStation}
+        //   onChange={handleChange}
+        // />
+        // <select
+        //   name="province"
+        //   value={newVehicle.province}
+        //   onChange={handleChange}
+        //   style={styles.dropdown}
+        // >
+        //   <option value="">Select Province</option>
+        //   <option value="Western">Western</option>
+        //   <option value="Central">Central</option>
+        //   <option value="Southern">Southern</option>
+        //   <option value="Eastern">Eastern</option>
+        //   <option value="Northern">Northern</option>
+        //   <option value="North Western">North Western</option>
+        //   <option value="Uva">Uva</option>
+        //   <option value="Sabaragamuwa">Sabaragamuwa</option>
+        // </select>
+
+        // <input
+        //   type="text"
+        //   name="policeOfficer"
+        //   placeholder="Police Officer"
+        //   value={newVehicle.policeOfficer}
+        //   onChange={handleChange}
+        // />
+        // <input
+        //   type="text"
+        //   name="temporaryLocation"
+        //   placeholder="Temporary Location"
+        //   value={newVehicle.temporaryLocation}
+        //   onChange={handleChange}
+        // />
+
+        {/* isActive Checkbox */}
+        // <label>
+        //   <input
+        //     type="checkbox"
+        //     name="isActive"
+        //     checked={newVehicle.isActive}
+        //     onChange={handleChange}
+        //   />
+        //   Is Active
+        // </label>
+
+      //   {/* Render this part only if isActive is false */}
+      //   {!newVehicle.isActive && (
+      //     <>
+      //       {/* isInPoliceGarage Checkbox */}
+      //       <label>
+      //         <input
+      //           type="checkbox"
+      //           name="isInPoliceGarage"
+      //           checked={newVehicle.isInPoliceGarage}
+      //           onChange={handleChange}
+      //         />
+      //         Is in Police Garage
+      //       </label>
+
+      //       {/* Render these fields conditionally */}
+      //       {!newVehicle.isInPoliceGarage && (
+      //         <>
+      //           <input
+      //             type="text"
+      //             name="outsideGarageLocation"
+      //             placeholder="Outside Garage Location"
+      //             value={newVehicle.outsideGarageLocation}
+      //             onChange={handleChange}
+      //           />
+      //           <input
+      //             type="number"
+      //             name="fundAmount"
+      //             placeholder="Fund Amount"
+      //             value={newVehicle.fundAmount}
+      //             onChange={handleChange}
+      //           />
+      //         </>
+      //       )}
+      //     </>
+      //   )}
+
+      //   <button onClick={handleCreate} style={styles.createButton}>
+      //     Save Vehicle
+      //   </button>
+      // </div> */}
