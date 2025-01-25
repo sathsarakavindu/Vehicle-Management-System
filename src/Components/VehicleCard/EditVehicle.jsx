@@ -1,25 +1,34 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from './../Header/Header';
 import Footer from './../Footer';
 
 
 function EditVehicle() {
+
+   const location = useLocation();
+   const {vehicle_Number, vehicle_Name, chassy_no, engine_no, permit_no, year_, category, province, temp_loc, officer, station, model, fund} = location.state || {};
+
     const navigate = useNavigate();
     const handleBack = () => {
         navigate(-1); // Go back to the previous page
       };
+
+const handleUpdate = ()=>{
+alert("Update");
+};
+
   return (
    <>
    <Header/>
     <div className="w-full h-[1450px] flex justify-center items-center mb-12">
-         <form onSubmit={()=>{}} className="p-6 bg-gray-100 rounded-md shadow-lg">
+         <form onSubmit={handleUpdate} className="p-6 bg-gray-100 rounded-md shadow-lg">
             <h2 className="text-2xl font-semibold mb-4">Edit Vehicle Details</h2>
             
             <label className="block mb-2">
                Vehicle No:
                <input
                   type="text"
-                  value={''}
+                  value={vehicle_Number}
                   onChange={() => {}}
                   className="w-full p-2 border rounded mt-1"
                   placeholder="Vehicle No"
@@ -31,7 +40,7 @@ function EditVehicle() {
                Vehicle Name:
                <input
                   type="text"
-                  value={''}
+                  value={vehicle_Name}
                   onChange={() => {}}
                   className="w-full p-2 border rounded mt-1"
                   placeholder="Vehicle Name"
@@ -43,7 +52,7 @@ function EditVehicle() {
                Chassy Number:
                <input
                   type="text"
-                 value={''}
+                 value={chassy_no}
                  onChange={() => {}}
                   className="w-full p-2 border rounded mt-1"
                   placeholder="Chassy Number"
@@ -54,7 +63,7 @@ function EditVehicle() {
                Engine Number:
                <input
                   type="text"
-                  value={''}
+                  value={engine_no}
                   onChange={() => {}}
                   className="w-full p-2 border rounded mt-1"
                   placeholder="Engine Number"
@@ -64,7 +73,7 @@ function EditVehicle() {
                Vehicle Revenue Permit:
                <input
                   type="text"
-                  value={''}
+                  value={permit_no}
                   onChange={() => {}}
                   className="w-full p-2 border rounded mt-1"
                   placeholder="Vehicle Revenue Permit"
@@ -83,7 +92,7 @@ function EditVehicle() {
                /> */}
                 <input
                   type="text"
-                  value={''}
+                  value={year_}
                   onChange={() => {}}
                   className="w-full p-2 border rounded mt-1"
                   placeholder="Manufacture Year"
@@ -93,7 +102,7 @@ function EditVehicle() {
             <label className="block mb-4">
                Category:
                <select className="w-full p-2 rounded border mt-1">
-                  <option value={''}>Select Category</option>
+                  <option value={category != null ? category : ""}>{(category != null) ? category : "Select Category"}</option>
                   <option value={'Truck'}>Truck</option>
                   <option value={'Sedan'}>Sedan</option>
                   <option value={'SUV'}>SUV</option>
@@ -113,46 +122,46 @@ function EditVehicle() {
                <select name="province"
           onChange={()=>{}}
           className=" mb-2 w-full p-2 mt-1">
-          <option value="">Select Province</option>
-          <option value="Western">Western</option>
-          <option value="Central">Central</option>
-          <option value="Southern">Southern</option>
-          <option value="Eastern">Eastern</option>
-          <option value="Northern">Northern</option>
-          <option value="North Western">North Western</option>
-          <option value="Uva">Uva</option>
-          <option value="Sabaragamuwa">Sabaragamuwa</option>
+          <option value={province != null ? province : ""}>{(province != null) ? province : "Select Province"}</option>
+          <option value={"Western"}>Western</option>
+          <option value={"Central"}>Central</option>
+          <option value={"Southern"}>Southern</option>
+          <option value={"Eastern"}>Eastern</option>
+          <option value={"Northern"}>Northern</option>
+          <option value={"North Western"}>North Western</option>
+          <option value={"Uva"}>Uva</option>
+          <option value={"Sabaragamuwa"}>Sabaragamuwa</option>
         </select>
             </label>
 
             <label className="block mb-2">
                Temporary Location:
-              <input type="text" value={''} placeholder="Temporary Location" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
+              <input type="text" value={temp_loc} placeholder="Temporary Location" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
             </label>
 
             <label className="block mb-2">
                Police Officer:
-              <input type="text" value={''} placeholder="Police Officer" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
+              <input type="text" value={officer} placeholder="Police Officer" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
             </label>
 
             <label className="block mb-2">
                Police Station:
-              <input type="text" value={''} placeholder="Temporary Location" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
+              <input type="text" value={station} placeholder="Temporary Location" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
             </label>
 
-            <label className="block mb-2">
+            {/* <label className="block mb-2">
                Vehicle Type:
-              <input type="text" value={''} placeholder="Vehicle Type" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
-            </label>
+              <input type="text" value={type_} placeholder="Vehicle Type" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
+            </label> */}
 
             <label className="block mb-2">
                Vehicle Model:
-              <input type="text" value={''} placeholder="Vehicle Model" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
+              <input type="text" value={model} placeholder="Vehicle Model" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
             </label>
 
             <label className="block mb-2">
                Amount of Fund:
-              <input type="text" value={''} placeholder="Amount of Fund" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
+              <input type="text" value={fund} placeholder="Amount of Fund" onChange={()=>{}} className="w-full p-2 border rounded mt-1" required/>
             </label>
 
             <button type="submit" className="w-full p-2 mt-4 bg-blue-600 text-white rounded hover:bg-blue-700 justify-center flex">
