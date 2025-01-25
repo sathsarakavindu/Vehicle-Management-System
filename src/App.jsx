@@ -7,14 +7,18 @@ import ManageVehicle from './Pages/Admin/ManageVehicle';
 import AboutUs from './Pages/About';
 import ContactUs from './Pages/Contact';
 import EditVehicle from './Components/VehicleCard/EditVehicle';
+import { Toaster } from 'react-hot-toast';
+
 
 function App() {
 
   return (
    <div>
     <BrowserRouter>
+    <Toaster  position="top-center"
+        reverseOrder={false}/>
       <Routes path="/*">
-  
+      
         <Route path="/*" element={<HomePage/>}/>
         <Route path="/manage-vehicle" element={<ManageVehicle/>}/>
         <Route path="/login" element={<Login/>}/>
