@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react"
+import toast from "react-hot-toast";
 
 
 function Login() {
@@ -12,13 +13,17 @@ function Login() {
       const response = await axios.post(import.meta.env.VITE_BACKEND_URL + '/users/login', credentials);
       localStorage.setItem('token', response.data.token);
       
+      toast.success('Login successful!');
 
-      alert('Login successful!');
-      window.location.href = "/manage-vehicle"
+      setTimeout(()=>{
+        window.location.href = "/manage-vehicle"
+      }, 2000);
+      
+      //window.location.href = "/manage-vehicle"
     }
     catch(error){
       console.error('Login failed:', error);
-      alert('Invalid email or password.');
+     toast.error("Invalid email or password.");
     }
   };
 
