@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 function AdminVehicleCard({ 
        name, 
        image, 
@@ -19,6 +21,8 @@ function AdminVehicleCard({
        handleEdit
        // Accept the delete function as a prop
    }) {
+
+       const navigate = useNavigate();
        return (
           <div className="w-full sm:w-full md:w-[48%] lg:w-[30%] h-[1050px] bg-slate-300 flex flex-col m-2 rounded-md relative"> 
            <div className="w-full">
@@ -96,7 +100,7 @@ function AdminVehicleCard({
            </div>
    
            {/*Edit button*/ }
-           <button onClick={()=>handleEdit()} className="absolute bottom-4 right-[120px] px-3 py-1 ">
+           <button onClick={()=>{navigate('/edit-vehicle')}} className="absolute bottom-4 right-[120px] px-3 py-1 ">
                  Edit
            </button>
    
