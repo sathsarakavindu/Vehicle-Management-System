@@ -13,7 +13,9 @@ function ManageVehicle() {
 
     const [vehicles, setVehicles] = useState([]);
     const [searchValue, setSearchValue] = useState(""); 
+    const[file, setFile] = useState(null);
     const [uploading, setUploading] = useState(false);
+    const[fileURL, setFileURL] = useState("")
 
   // State for adding a vehicle with all fields from the schema
   const [newVehicle, setNewVehicle] = useState({
@@ -177,39 +179,55 @@ function ManageVehicle() {
       }));
     }
   };
+ 
+
 
   const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
+    const selectedFile = e.target.files[0]; // Extract the file from the event
+    setFile(selectedFile); // Use the setter function to update the state
+  
+    if (!selectedFile) {
+      alert("Please select a file to upload.");
+      return;
+    }
+  
     setUploading(true);
-
+  
     try {
-      const fileName = `${new Date().getTime()}-${file.name}`;
+      const fileExt = selectedFile.name.split(".").pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+  
       const { data, error } = await supabase.storage
-        .from('vehicle-images')
-        .upload(fileName, file);
-
+        .from("vehicle-images")
+        .upload(filePath, selectedFile);
+  
       if (error) {
-        console.error('Error uploading image:', error.message);
+        console.error("Error uploading image:", error.message);
         return;
       }
-
-      const { publicUrl } = supabase.storage.from('vehicle-images').getPublicUrl(data.path);
-
+  
+      const { data: url } = await supabase.storage
+        .from("vehicle-images")
+        .getPublicUrl(filePath);
+  
+      console.log("Public URL is:", url.publicUrl);
+  
+      setFileURL(url.publicUrl);
+  
       setNewVehicle((prevState) => ({
         ...prevState,
-        vehicleImage: publicUrl,
+        vehicleImage: url.publicUrl,
       }));
-
-      console.log('Image uploaded successfully:', publicUrl);
+  
+      console.log("Image uploaded successfully:", url.publicUrl);
     } catch (error) {
-      console.error('Error uploading image:', error.message);
+      console.error("Error uploading image:", error.message);
     } finally {
       setUploading(false);
     }
   };
-
+  
 
   
 
