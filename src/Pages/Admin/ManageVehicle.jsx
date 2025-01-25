@@ -4,6 +4,8 @@ import './../../styles/App.css'
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer';
 import AdminVehicleCard from '../../Components/VehicleCard/AdminVehicleCard';
+import { supabase } from '../../Components/Admin/supabaseClient';
+// import { supabase } from '../../Components/Admin/supabaseClient'; // Import Supabase client
 
 
 function ManageVehicle() {
@@ -11,6 +13,9 @@ function ManageVehicle() {
 
     const [vehicles, setVehicles] = useState([]);
     const [searchValue, setSearchValue] = useState(""); 
+    const[file, setFile] = useState(null);
+    const [uploading, setUploading] = useState(false);
+    const[fileURL, setFileURL] = useState("")
 
   // State for adding a vehicle with all fields from the schema
   const [newVehicle, setNewVehicle] = useState({
@@ -28,7 +33,7 @@ function ManageVehicle() {
     policeOfficer: "",
     temporaryLocation: "",
     isActive: true,
-    isInPoliceGarage: true,
+    isInPoliceGarage: false,
     outsideGarageLocation: "",
     fundAmount: 0,
   });
@@ -82,11 +87,22 @@ function ManageVehicle() {
   };
 
   const createVehicle = async (vehicleData) => {
-    const response = await axios.post( import.meta.env.VITE_BACKEND_URL + '/vehicles', vehicleData, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    });
-    return response.data;
+    try {
+      console.log("Sending payload:", vehicleData);
+      const response = await axios.post(
+        import.meta.env.VITE_BACKEND_URL + '/vehicles',
+        vehicleData,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error response:", error.response?.data || error.message);
+      throw error;
+    }
   };
+  
 
   const handleCreate = async () => {
     try {
@@ -163,6 +179,55 @@ function ManageVehicle() {
       }));
     }
   };
+ 
+
+
+  const handleImageUpload = async (e) => {
+    const selectedFile = e.target.files[0]; // Extract the file from the event
+    setFile(selectedFile); // Use the setter function to update the state
+  
+    if (!selectedFile) {
+      alert("Please select a file to upload.");
+      return;
+    }
+  
+    setUploading(true);
+  
+    try {
+      const fileExt = selectedFile.name.split(".").pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+  
+      const { data, error } = await supabase.storage
+        .from("vehicle-images")
+        .upload(filePath, selectedFile);
+  
+      if (error) {
+        console.error("Error uploading image:", error.message);
+        return;
+      }
+  
+      const { data: url } = await supabase.storage
+        .from("vehicle-images")
+        .getPublicUrl(filePath);
+  
+      console.log("Public URL is:", url.publicUrl);
+  
+      setFileURL(url.publicUrl);
+  
+      setNewVehicle((prevState) => ({
+        ...prevState,
+        vehicleImage: url.publicUrl,
+      }));
+  
+      console.log("Image uploaded successfully:", url.publicUrl);
+    } catch (error) {
+      console.error("Error uploading image:", error.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+  
 
   
 
@@ -207,6 +272,11 @@ function ManageVehicle() {
           value={newVehicle.vehicleBrand}
           onChange={handleChange}
         />
+        <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+          />
         <input
           type="text"
           name="vehicleImage"

@@ -134,6 +134,7 @@ function VehiclePanel({ province, vehicleNumber }) {
   return (
     <div className="flex flex-wrap justify-center gap-4">
       {vehicle.map((value, index) => (
+        console.log(value.image),
         <VehicleCard
           key={index}
           fundAmount={value.fundAmount}
@@ -151,7 +152,7 @@ function VehiclePanel({ province, vehicleNumber }) {
           category={value.vehicleCategory}
           model={value.vehicleBrand}
           vehicle_no={value.vehicleNumber}
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7P4uDsjBCS_f54801NJpbGxzVgcgq20vcQIgfjb23U11mDoue0xML-p4&s"
+          image={value.vehicleImage}
         />
       ))}
     </div>
