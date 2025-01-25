@@ -6,6 +6,7 @@ import Login from './Pages/Admin/login';
 import ManageVehicle from './Pages/Admin/ManageVehicle';
 import AboutUs from './Pages/About';
 import ContactUs from './Pages/Contact';
+import EditVehicle from './Components/VehicleCard/EditVehicle';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path='/about' element={<AboutUs/>}/>
         <Route path='/contact' element={<ContactUs/>}/>
+        <Route path='/edit-vehicle' element={<EditVehicle/>}/>
       </Routes>
     </BrowserRouter>
    </div>
